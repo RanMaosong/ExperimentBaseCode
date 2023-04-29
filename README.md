@@ -3,6 +3,7 @@
 ```
 Project
 ├── checkpoints 保存模型参数和日志记录
+    ├── pretrain    #存放预训练模型
     ├── minist_classifier # 使用模型名字，来区分不同模型的参数
         ├── name1 # 这一层使用不同训练参数命名，来区分相同模型结构，不同训练超参的参数
             ├── log    # tensorboard 保存数据的目录
@@ -50,7 +51,13 @@ Project
 
 # checkpoints
 
-该目录用于保存模型的相关参数和日志文件
+该目录用于保存模型的相关参数和日志文件，该目录下的内容按如下逻辑进行组织：
+
+   1.  一级目录是模型名字，对应model目录下的一个model文件
+
+2. 二级目录对应训练模型时使用的相关超参，默认使用lr、seed、optimizer、criterion和dataset
+
+3. 三级才存放参数和相关日志
 
 # model
 
