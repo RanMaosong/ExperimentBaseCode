@@ -1,5 +1,5 @@
-name: person_reId_baseline
-entrypoint: chmod 777 ./train.sh && sh ./train.sh
+name: test
+entrypoint: chmod 777 ./scripts/train.sh && bash ./scripts/train.sh
 searcher:
   name: single
   metric: validation_loss
@@ -7,6 +7,7 @@ searcher:
     batches: 1
 max_restarts: 0
 resources:
-  resource_pool: RTX4090 RTX3090 GTX1080ti
+  # resource_pool: RTX4090 RTX3090 GTX1080ti
+  resource_pool: GTX1080ti
 
   

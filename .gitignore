@@ -2,5 +2,5 @@
 sota/*
 data/*
 !data/*.py
-checkpoints/*
 .vecode/*
+checkpoints/*

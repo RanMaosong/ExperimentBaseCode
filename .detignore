@@ -1,0 +1,6 @@
+*.pyc
+sota/*
+data/*
+!data/*.py
+.vecode/*
+checkpoints/*
