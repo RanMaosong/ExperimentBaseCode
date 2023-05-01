@@ -1,5 +1,5 @@
 name: test
-entrypoint: chmod 777 ./scripts/train.sh && bash ./scripts/train.sh
+entrypoint: bash ./scripts/train.sh
 searcher:
   name: single
   metric: validation_loss
@@ -8,6 +8,6 @@ searcher:
 max_restarts: 0
 resources:
   # resource_pool: RTX4090 RTX3090 GTX1080ti
-  resource_pool: GTX1080ti
+  resource_pool: RTX4090
 
   

@@ -65,7 +65,8 @@ class BaseModel(nn.Module):
             raise "You must call 'model.optimizer = optimizer' to set optimizer"
 
         self.train()
-        for cur_step, data in enumerate(tqdm(self._trainset, desc="Epoch={}".format(epoch))):
+        # for cur_step, data in enumerate(tqdm(self._trainset, desc="Epoch={}".format(epoch))):
+        for cur_step, data in enumerate(self._trainset):
             # optimize the model
             _, pred, target = self.step(data)
             loss = self.compute_loss(pred, target)
@@ -79,9 +80,9 @@ class BaseModel(nn.Module):
             self._writer.add_scalars("train", metric_values, self._total_step)
 
             # log the training information
-            if cur_step % print_by_step == 0:
+            if cur_step % print_by_step == 0 or cur_step + 1 == len(self._trainset):
                 metric_info = self.get_metric_info(metric_values)
-                logger.info("Train: epoch={}, step={}, {}".format(epoch, cur_step, metric_info))
+                logger.info("Train: epoch={}, step={}/{}, {}".format(epoch+1, cur_step+1, len(self._trainset), metric_info))
             
             self._total_step += 1
 
@@ -105,7 +106,9 @@ class BaseModel(nn.Module):
         self._writer.add_scalars("val", metric_mean_value, epoch)
 
         metric_info = self.get_metric_info(metric_mean_value)
+        logger.info("****************************************************************")
         logger.info("Val: epoch={}, {}".format(epoch, metric_info))
+        logger.info("****************************************************************")
 
         return metric_mean_value
 
@@ -184,7 +187,7 @@ class BaseModel(nn.Module):
             remove_file(path)
 
             self._best_val_loss = cur_val_metrics["loss"]
-            file_name = "best_loss<{:.4f}>_epoch<{}>.pkl".format(self._best_val_loss, self._cur_epoch)
+            file_name = "best_loss={:.4f}_epoch={}.pkl".format(self._best_val_loss, self._cur_epoch)
             path = os.path.join(self._checkpoint, file_name)
             save(path)
         
@@ -192,7 +195,7 @@ class BaseModel(nn.Module):
         remove_file(path)
 
         self._best_val_loss = cur_val_metrics["loss"]
-        file_name = "finall_loss<{:.4f}>_epoch<{}>.pkl".format(self._best_val_loss, self._cur_epoch)
+        file_name = "finall_loss={:.4f}=_epoch={}=.pkl".format(self._best_val_loss, self._cur_epoch)
         path = os.path.join(self._checkpoint, file_name)
         save(path)
 

@@ -1,5 +1,7 @@
 import os
 import time
+import sys
+import shutil
 
 import torch.optim as optim
 import torch.nn as nn
@@ -19,7 +21,7 @@ def main(args):
     device = args.device
     batch_size = args.batch_size
 
-    dir_name = "lr<{}>_seed<{}>_optim<{}>_criterion<{}>_dataset<{}>".format(
+    dir_name = "lr={:e}_seed={}_{}_{}_{}".format(
         args.lr, 
         args.seed,
         args.optimizer,
@@ -29,17 +31,22 @@ def main(args):
     args.checkpoint = os.path.join(checkpoint, args.model_name, dir_name)
     logger.info("checkpoint path root: {}".format(args.checkpoint))
 
-    logger.info(get_formated_args(args))
+
     time.sleep(5) # for checking wherther the args is right!
+
+    
+    shutil.rmtree("/data/rms/test")
 
     if not os.path.exists(args.checkpoint):
         os.makedirs(args.checkpoint)
+    logger.remove()
+    logger.add(sys.stdout, format="|  {level:<8} | {name}:{function}:{line} - {message}", level="INFO")
 
     if args.log_to_file:
         path = os.path.join(args.checkpoint, "log.txt")
         logger.add(path)
-
-        logger.info(get_formated_args(args))
+    logger.info(get_formated_args(args))
+    
 
     # ################################ setup dataset ##########################
     if args.dataset == "minist_dataset":
