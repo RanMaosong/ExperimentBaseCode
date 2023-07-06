@@ -37,6 +37,7 @@ Project
     ├── tools.py   
 ├── yaml
     ├── config.yaml    # 通过yaml更新Argsparser
+├── verification    # 验证Ideas
 ├── eval.py    # 验证模型性能的，比如论文中相关量化数据和可视化数据
 ├── loss.py    # 自定义loss函数
 ├── main.py    # 程序入口
