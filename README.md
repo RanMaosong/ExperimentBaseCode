@@ -31,6 +31,9 @@ Project
 ├── sota    # 存放对比方法代码
     ├── sota1
     ├── sota2
+├── test     # 存放测试文件
+    ├── test1.py
+    ├── test2.py
 ├── util    # 工具类
     ├── logger.py    # 日志记录相关
     ├── setup.py    # 环境设置相关，比如随机种子
